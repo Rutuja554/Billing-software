@@ -1,0 +1,127 @@
+﻿@{
+    Layout = null;
+}
+
+
+<html>
+<head>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="#">
+                <b>Billing Software</b>
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+
+                <ul class="navbar nav ms-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Teacher/Dashboard/Index" style="color:white">Dashboard</a>
+
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Customer/Create" style="color:white">Customer</a>
+
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Product/AddProduct" style="color:white">Product</a>
+
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/InvoiceDetail/NewInvoice" style="color:white">New Invoice</a>
+
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/InvoiceDetail/Index" style="color:white">All Invoice</a>
+
+                    </li>
+
+
+
+
+                </ul>
+
+
+            </div>
+
+            <div class="navbar-nav ms-auto">
+                <input type="text" class="form-control" placeholder="Search">
+                <button class="btn btn-outline-light" type="submit">Search</button>
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </nav>
+
+    <div class="container-fluid mt-3">
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="list-group">
+                    <div class="list-group-item active">
+                        Dashboard
+                    </div>
+                    <a href="/Customer/Create" class="list-group-item list-group-flush">Customer</a>
+                    <a href="/Product/AddProduct" class="list-group-item list-group-flush">Product</a>
+                    <a href="/InvoiceDetail/NewInvoice" class="list-group-item list-group-flush">New Invoice</a>
+                    <a href="/InvoiceDetail/Index" class="list-group-item list-group-flush">All Invoice</a>
+
+
+
+
+
+
+
+
+
+                </div>
+
+            </div>
+
+            <div class="col-md-10">
+                @RenderBody()
+
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center p-3 mt-3">
+        &Copy;@DateTime.Now.Year
+        <a href="https://ciitinstitute.com/"></a>
+
+    </footer>
+    <script src=""></script>
+
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+
+
+</body>
+</html>

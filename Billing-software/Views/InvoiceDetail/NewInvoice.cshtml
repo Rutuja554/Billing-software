@@ -1,0 +1,246 @@
+﻿@{
+    Layout = "~/Views/Shared/InvoiceLayout.cshtml";
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+<script>
+
+    let products=[];
+    let product_name="";
+    let final;
+
+    $(document).ready(function(){
+       Displaytable();
+
+        $("#ProductId").change(function(){
+            FetchProduct();
+        })
+    })
+
+    const FetchProduct=async()=>{
+        let pid=document.getElementById("ProductId").value;
+        const response=await fetch("/Product/FetchProductById/"+pid);
+        const data=await response.json();
+        product_name=data.productName;
+        // console.log(data);
+
+        document.getElementById("txtrate").value=data.rate;
+        document.getElementById("txtgst").value=data.gst;
+        document.getElementById("txtstock").value=data.stockQuantity;
+
+
+    }
+
+    const Cal=async()=>{
+       let rate=Number(document.getElementById("txtrate").value);
+       let gst=Number(document.getElementById("txtgst").value);
+       let quantity=Number(document.getElementById("txtquantity").value);
+
+       let t=rate*quantity;
+       let gt=t*gst/100;
+       let tot=gt+t;
+
+       document.getElementById("txttot").value=tot;
+       
+
+    }
+
+    const AddProduct=()=>{
+
+         let pid=Number(document.getElementById("ProductId").value);
+         let r=Number(document.getElementById("txtrate").value);
+       let g=Number(document.getElementById("txtgst").value);
+       let q=Number(document.getElementById("txtquantity").value);
+       let t=Number(document.getElementById("txttot").value);
+
+       let st={
+           "productId":pid,
+           "productName":product_name,
+           "rate":r,
+           "gst":g,
+           "quantity":q,
+           "total":t
+
+       };
+
+       products.push(st);
+       Displaytable();
+       ClearData();
+
+
+
+    }
+
+     const Displaytable=()=>{
+         let data="";
+         final=0;
+
+         products.forEach(function(d,i){
+
+             final=final+Number(d.total);
+             data=data+"<tr><td>"+(i+1)+"</td><td>"+d.productName+"</td><td>"+d.rate+"</td><td>"+d.gst+"</td><td>"+d.quantity+"</td><td>"+d.total.toFixed(2)+"</td></tr>";
+         })
+
+         document.getElementById("tdata").innerHTML=data;
+         document.getElementById("gtot").innerHTML=final.toFixed(2);
+     }
+
+     const submitbtn=async()=>{
+
+         let cid=document.getElementById("CustomerId").value;
+         let dt=document.getElementById("txtdate").value;
+
+         let st={
+             "CustomerId":cid,
+             "InvoiceDate":dt,
+             "TotalAmt":final,
+             "Tblinvoiceproducts":products
+
+         };
+
+         const response=await fetch("/InvoiceDetail/GenerateInvoice",{
+             method:'post',
+             body:JSON.stringify(st),
+             headers:{
+                 'Content-Type':'application/json'
+             }
+         });
+
+         const data=await response.text();
+         console.log(data);
+             alert(data);
+             window.location.reload();
+     }
+
+       
+    const ClearData=()=>{
+
+        document.getElementById("ProductId").value="";
+        document.getElementById("txtrate").value="";
+        document.getElementById("txtgst").value="";
+        document.getElementById("txtquantity").value="";
+        document.getElementById("txtstock").value="";
+        document.getElementById("txttot").value="";
+
+    }
+
+</script>
+
+
+
+    <div class="card">
+
+        <div class="card-header">
+            <h1>New Invoice</h1>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <table class="table table-borderless">
+
+                    <tr>
+                        <td>Customer Name
+                            @Html.DropDownList("CustomerId",ViewBag.customers as SelectList,"Select Customer",new{@class="form-control"})
+                        </td>
+
+                        <td>Invoice Date
+                            @Html.TextBox("txtdate","",new{Type="date",@class="form-control"})
+                        </td>
+
+                    </tr>
+
+                </table>
+
+            </div>
+
+            <div class="row">
+                
+                <table class="table table-borderless">
+
+                    <tr>
+
+                    <td>
+                        Product Name
+                        @Html.DropDownList("ProductId", ViewBag.products as SelectList,"Select Product", new { @class = "form-control" })
+                    </td>
+
+                    <td>
+                        <label>Rate</label><br/>
+                        <input type="text" id="txtrate" class="form-control">
+                    </td>
+
+
+                    <td>
+                        <label>Gst</label><br/>
+                        <input type="text" id="txtgst" class="form-control">
+                    </td>
+
+
+                    <td>
+                        <label>Stock</label><br/>
+                        <input type="text" id="txtstock" class="form-control">
+                    </td>
+
+
+                    <td>
+                        <label>Quantity</label><br/>
+                        <input type="text" id="txtquantity" class="form-control" onkeyup="Cal()">
+                    </td>
+
+
+                    <td>
+                        <label>Total</label><br/>
+                        <input type="text" id="txttot" class="form-control">
+                    </td>
+
+                    <td>
+                        <button type="button"  class="btn btn-primary" onclick="AddProduct()">+</button>
+                    </td>
+
+                    </tr>
+
+                </table>
+
+
+            </div>
+
+            <div class="row mb-3">
+
+                <table class="table table-bordered table-striped table-hover">
+
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Product Name</th>
+                        <th>Rate</th>
+                        <th>Gst</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody id="tdata">
+
+                    </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" style="text-align:right">Total Amount</td>
+                            <td><b id="gtot"></b></td>
+                        </tr>
+                    </tfoot>
+              </table>
+
+              <button type="button" value="Submit" class="btn btn-info" onclick="submitbtn()">Submit</button>
+
+            </div>
+
+        </div>
+
+    </div>
+

@@ -1,0 +1,61 @@
+﻿@model Tblproduct 
+
+
+
+
+@using (Html.BeginForm())
+{
+    
+
+
+    <div class="card">
+        <div class="card-header bg-primary">
+            <h4>Product Form</h4>
+
+        </div>
+
+        <div class="card-body bg-light">
+
+            <input type="hidden" id="txtproduct_id">
+
+            <div class="mb-3">
+                <label>Product Name</label>
+                <input type="text" id="txtpname" class="form-control">
+
+            </div>
+
+
+            <div class="mb-3">
+                <label>Rate</label>
+                <input type="text" id="txtrate" class="form-control">
+
+
+            </div>
+
+
+            <div class="mb-3">
+                <label>Gst</label>
+                <input type="text" id="txtgst" class="form-control">
+            </div>
+
+
+            <div class="mb-3">
+                <label>Stock</label>
+                <input type="text" id="txtstock" class="form-control">
+            </div>
+
+
+
+        </div>
+
+        <div class="card-footer bg-gradient">
+            <button type="button" value="Submit" class="btn btn-primary" onclick="Addbtn()">Submit</button>
+            <button type="button" value="Update" class="btn btn-success" onclick="Updatebtn()">Update</button>
+
+            
+
+
+        </div>
+    </div>
+}
+

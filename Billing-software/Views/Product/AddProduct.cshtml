@@ -1,0 +1,141 @@
+﻿@{
+    Layout = "~/Views/Shared/InvoiceLayout.cshtml";
+}
+
+<script>
+
+    const DisplayProductData=async()=>{
+        let response=await fetch("/Product/FetchProduct");
+        let product=await response.json();
+
+        let data="";
+
+        product.forEach(function(d,i){
+            data=data+"<tr><td>"+d.productId+"</td><td>"+d.productName+"</td><td>"+d.rate+"</td><td>"+d.gst+"</td><td>"+d.stockQuantity+"</td><td><input type='button' value='Edit' class='btn btn-warning' onclick='ViewProduct("+d.productId+")'>&nbsp;<input type='button' value='Delete' class='btn btn-Danger' onclick='DeleteProduct("+d.productId+")'></td></tr>";
+       
+        })
+
+        document.getElementById("tbldata").innerHTML=data;
+    }
+
+    DisplayProductData();
+
+    const Addbtn=async()=>{
+
+        st={
+
+            "productName":document.getElementById("txtpname").value,
+            "rate":document.getElementById("txtrate").value,
+            "gst":document.getElementById("txtgst").value,
+            "stockQuantity":document.getElementById("txtstock").value
+        }
+
+        const response=await fetch("/Product/AddProduct",{
+            method:'post',
+            body:JSON.stringify(st),
+            headers:{
+                'Content-Type':'application/json'
+            },
+        });
+
+        const data=await response.text();
+        console.log(data);
+        alert(data);
+          DisplayProductData();
+          ClearData();
+    }
+
+
+    const Updatebtn=async()=>{
+
+        st={
+            "productId":document.getElementById("txtproduct_id").value,
+            "productName":document.getElementById("txtpname").value,
+            "rate":document.getElementById("txtrate").value,
+            "gst":document.getElementById("txtgst").value,
+            "stockQuantity":document.getElementById("txtstock").value
+        }
+
+        const response=await fetch("/Product/UpdateProduct",{
+            method:'post',
+            body:JSON.stringify(st),
+            headers:{
+                'Content-Type':'application/json'
+            },
+        });
+
+        const data=await response.text();
+        console.log(data);
+        alert(data);
+          DisplayProductData();
+          ClearData();
+    }
+
+
+
+
+
+    const ViewProduct=async(id)=>{
+        const response=await fetch("/Product/FetchProductById/"+id);
+        const st=await response.json();
+        document.getElementById("txtproduct_id").value=st.productId;
+        document.getElementById("txtpname").value=st.productName;
+        document.getElementById("txtrate").value=st.rate;
+        document.getElementById("txtgst").value=st.gst;
+        document.getElementById("txtstock").value=st.stockQuantity;
+
+    }
+
+    const DeleteProduct=async(id)=>{
+
+
+        const response=await fetch("/Product/DeleteProduct/"+id,{
+            method:'post',
+            headers:{
+                'Content-Type':'application/json'
+            },
+        });
+
+        const data=await response.text();
+        console.log(data);
+        alert(data);
+          DisplayProductData();
+        
+
+    }
+
+
+
+    const ClearData=()=>{
+        document.getElementById("txtproduct_id").value="";
+        document.getElementById("txtpname").value="";
+        document.getElementById("txtrate").value="";
+        document.getElementById("txtgst").value="";
+        document.getElementById("txtstock").value="";
+    };
+
+    
+
+
+</script>
+
+
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            @Html.Partial("~/Views/Shared/Product/productform.cshtml")
+        </div>
+
+        <div class="col-md-8">
+
+            @Html.Partial("~/Views/Shared/Product/producttable.cshtml")
+
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Billing_software.Models.invoicemodel>
+@{
+    Layout = "~/Views/Shared/InvoiceLayout.cshtml";
+}
+
+
+<div class="container-fluid">
+
+    <div class="row mb-3">
+
+    </div>
+
+    <div class="row mb-3">
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Sr No</th>
+                    <th>Invoice Date</th>
+                    <th>Customer Name</th>
+                    <th>Total Amount</th>
+                    <th>Paid Amount</th>
+                    <th>Remaing Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                @{
+                    int i = 1;
+                }
+                @foreach(var item in Model)
+                {
+                    <tr>
+                        <td>@i</td>
+                        <td>@item.InvoiceDate.ToShortDateString()</td>
+                        <td>@item.CustomerName</td>
+                        <td>@item.TotalAmount</td>
+                        <td>@item.PaidAmount</td>
+                        <td>@item.RemainigAmount</td>
+                        <td>@item.Status</td>
+                        <td>
+
+                            @if(item.Status=="Paid")
+                            {
+                                <a href="/InvoiceDetail/ViewInvoice/@item.InvoiceId" class="btn btn-info">View Invoice</a>
+
+                            }else{
+                                    <a href="/InvoiceDetail/PayInvoice/@item.InvoiceId" class="btn btn-warning">Pay Now</a>
+
+                            }
+                            </td>
+
+                    </tr>
+                    i++;
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

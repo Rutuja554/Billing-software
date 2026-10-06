@@ -1,0 +1,56 @@
+﻿@model Tblcustomer
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(e => e.CustomerId)
+
+
+    <div class="card">
+        <div class="card-header bg-primary">
+            <h4>@ViewBag.Header</h4>
+
+        </div>
+
+        <div class="card-body bg-light">
+
+
+
+            <div class="mb-3">
+                <label>Customer Name</label>
+                @Html.TextBoxFor(e => e.CustomerName, new { @class = "form-control" })
+
+            </div>
+
+
+            <div class="mb-3">
+                <label>Mobile No</label>
+                @Html.TextBoxFor(e => e.MobileNo, new { @class = "form-control" })
+
+            </div>
+
+
+            <div class="mb-3">
+                <label>City</label>
+                @Html.TextBoxFor(e => e.City, new { @class = "form-control" })
+
+            </div>
+
+
+
+        </div>
+
+        <div class="card-footer bg-gradient">
+            <input type="submit" value="@ViewBag.btnvalue" class="@ViewBag.btnclass ">
+            <b>@ViewBag.msg</b>
+
+
+        </div>
+    </div>
+}
+
+
+

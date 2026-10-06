@@ -1,0 +1,126 @@
+﻿@model Tblinvoicepayment
+
+@{
+    Layout = "~/Views/Shared/InvoiceLayout.cshtml";
+}
+
+@{
+    invoicemodel m = (invoicemodel)ViewData["invoice"];
+}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-4">
+
+            @using (Html.BeginForm("PayInvoice","InvoiceDetail",FormMethod.Post))
+            {
+                <div class="card">
+
+                    <div class="card-header">
+                        <h4>Pay Invoice</h4>
+                        <i>@ViewBag.msg</i>
+                    </div>
+
+                    <div class="card-body">
+                       <div class="row">
+                           <div class="col-md-8">
+                               <div class="mb-3">
+                                   <label>Customer Name</label>
+                                   <input type="text" disabled value="@m.CustomerName" class="form-control">
+
+
+                               </div>
+                           </div>
+
+                           <div class="col-md-4">
+                               <div class="mb-3">
+                                   <lable>Invoice ID</lable>
+                                   @Html.TextBoxFor(e=>e.InvoiceId,new{@class="form-control"})
+
+                               </div>
+
+                           </div>
+
+                       </div>
+
+                        <div class="mb-3">
+                            <label>Payment date</label>
+                            @Html.TextBoxFor(e=>e.PaymentDate,new{@class="form-control",Type="date"})
+
+                        </div>
+
+                        <div class="row mb-3">
+
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label>Total Amount</label>
+                                    <input type="text" value="@m.TotalAmount" disabled class="form-control">
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label>Paid Amount</label>
+                                    <input type="text" value="@m.PaidAmount" disabled class="form-control">
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label>Remaining Amount</label>
+                                    <input type="text" value="@m.RemainigAmount" disabled class="form-control">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Payment Amount</label>
+                            @Html.TextBoxFor(e => e.PaymentAmt, new { @class = "form-control" })
+
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label>Payment Mode</label>
+                            @Html.TextBoxFor(e => e.PaymentMode, new { @class = "form-control" })
+
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Payment Description</label>
+                            @Html.TextBoxFor(e => e.PaymentDescription, new { @class = "form-control" })
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="card-footer">
+                        <input type="submit" value="Submit" class="btn btn-info">
+
+                    </div>
+                    
+
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+

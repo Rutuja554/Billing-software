@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "~/Views/Shared/InvoiceLayout.cshtml";
+}
+
+<link href="~/css/site.css" rel="stylesheet" />
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            @Html.Partial("~/Views/Shared/Customer/customerform.cshtml")
+        </div>
+
+        <div class="col-md-8">
+
+            @Html.Partial("~/Views/Shared/Customer/customertable.cshtml")
+
+
+        </div>
+
+    </div>
+
+</div>

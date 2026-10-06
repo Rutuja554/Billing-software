@@ -1,0 +1,217 @@
+﻿@model Tblinvoicedetail;
+
+
+@{
+    Layout = "~/Views/Shared/InvoiceLayout.cshtml";
+}
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+
+    const PrintInvoice=()=>{
+        let printContents=document.getElementById("dv").innerHTML;
+        let originalContents=document.body.innerHTML;
+        document.body.innerHTML=printContents;
+        window.print();
+        document.body.innerHTML=originalContents;
+    }
+</script>
+
+<button type="button" value="Print Invoice" class="btn btn-primary" onclick="PrintInvoice()">Print</button>
+
+<div class="container-fluid" id="dv">
+
+    <div class="row-mb-3">
+
+        <div class="col-md-2">
+        </div>
+
+        <div class="col-md-10">
+
+            <h3 style="text-align:center">Invoice</h3>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="row-mb-3">
+
+        <div style="height:10px;border-top:2px solid black;width:100%">
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <table>
+
+                <tr>
+                    <td>Customer Name:</td>
+                    <td><b>@Model.Customer.CustomerName</b></td>
+
+                </tr>
+
+                <tr>
+                    <td>Address:</td>
+                    <td><b>@Model.Customer.City</b></td>
+
+                </tr>
+
+                <tr>
+                    <td>Mobile No:</td>
+                    <td><b>@Model.Customer.MobileNo</b></td>
+
+                </tr>
+
+
+
+            </table>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <table>
+
+                    <tr>
+                        <td>Invoice #:</td>
+                        <td><b>@Model.InvoiceId</b></td>
+                    </tr>
+
+                    <tr>
+                        <td>Invoice Date:</td>
+                        <td><b>@Model.InvoiceDate.ToShortDateString()</b></td>
+                    </tr>
+
+                    <tr>
+                        <td>Total Amount:</td>
+                        <td><b>@Model.TotalAmt</b></td>
+                    </tr>
+
+
+
+                </table>
+
+            </div>
+
+
+      
+
+    </div>
+
+
+    <div class="row mb-3">
+
+        <div style="height:10px;border-top:2px solid black;width:100%">
+        </div>
+
+    </div>
+
+    <div class="row-mb-3">
+        <h4 style="text-align:center">!!Products!!</h4>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Sr No</th>
+                    <th>Product Name</th>
+                    <th>Rate</th>
+                    <th>Gst</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                @{
+                    int i = 1;
+                }
+                @foreach (var item in Model.Tblinvoiceproducts)
+                {
+                    float total = (float)(item.Product.Rate + (item.Product.Rate * item.Product.Gst / 100) * item.Quantity);
+                    <tr>
+                        <td>@i</td>
+                        <td>@item.Product.ProductName</td>
+                        <td>@item.Product.Rate</td>
+                        <td>@item.Product.Gst</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Product.ProductName</td>
+
+                    </tr>
+                    i++;
+                }
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align:right">Total=</td>
+                    <td>@Model.TotalAmt</td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+
+
+
+    <div class="row mb-3">
+
+        <div style="height:10px;border-top:2px solid black;width:100%">
+        </div>
+
+        <h3 style="text-align:center">All Payment</h3>
+
+    </div>
+
+    <div class="row-mb-3">
+        <table class="table table-bordered">
+
+            <thead>
+                <tr>
+                    <th>Sr No</th>
+                    <th>Payment Date</th>
+                    <th>payment Amount</th>
+                    <th>Payment Mode</th>
+                    <th>Description</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @{
+                    int id = 1;
+                }
+
+                @foreach (var item in Model.Tblinvoicepayments)
+                {
+                    <tr>
+                        <td>@id</td>
+                        <td>@item.PaymentDate.ToShortDateString()</td>
+                        <td>@item.PaymentAmt</td>
+                        <td>@item.PaymentMode</td>
+                        <td>@item.PaymentDescription</td>
+                        
+
+                    </tr>
+
+                    id++;
+                }
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+
+
+
+
+
+
+</div>
