@@ -526,39 +526,32 @@ For example:
 
 ---
 
-# 📸 Screens / Modules
+## 📸 Screens / Modules
 
 The application contains the following major screens:
 
-* Dashboard / Home
-* Customer Management
-* Product Management
-* New Invoice
-* Invoice List
-* Payment Form
-* Invoice Details
-* Printable Invoice
+* 🏠 Dashboard / Home
+* 👤 Customer Management
+* 📦 Product Management
+* 🧾 New Invoice
+* 📋 Invoice List
+* 💳 Payment Form
+* 🔍 Invoice Details
+* 🖨️ Printable Invoice
 
-You can add screenshots to this README using:
-
-```markdown
 ## 📸 Screenshots
 
-### Customer Management
-![Customer Management](screenshots/customer.png)
+### 👤 Customer Management
+![Customer Management](Images/customer.png)
 
-### Product Management
-![Product Management](screenshots/product.png)
+### 📦 Product Management
+![Product Management](Images/product.png)
 
-### New Invoice
-![New Invoice](screenshots/new-invoice.png)
+### 🧾 New Invoice
+![New Invoice](Images/new-invoice.png)
 
-### Invoice Details
-![Invoice Details](screenshots/invoice-details.png)
-```
-
----
-
+### 📋 Invoice Details
+![Invoice Details](Images/invoice-details.png)
 # 🎯 Project Objectives
 
 The main objectives of this project are:
