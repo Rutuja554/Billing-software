@@ -542,16 +542,16 @@ The application contains the following major screens:
 ## 📸 Screenshots
 
 ### 👤 Customer Management
-![Customer Management](Images/customer.png)
+![Customer Management](Billing-software/Images/customer.png)
 
 ### 📦 Product Management
-![Product Management](Images/product.png)
+![Product Management](Billing-software/Images/product.png)
 
 ### 🧾 New Invoice
-![New Invoice](Images/new-invoice.png)
+![New Invoice](Billing-software/Images/new-invoice.png)
 
 ### 📋 Invoice Details
-![Invoice Details](Images/invoice-details.png)
+![Invoice Details](Billing-software/Images/invoice-details.png)
 # 🎯 Project Objectives
 
 The main objectives of this project are:
